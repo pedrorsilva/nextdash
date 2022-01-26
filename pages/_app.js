@@ -1,18 +1,21 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// import "../styles/globals.css";
 import "../styles/style.css";
 
 import Head from "next/head";
+import React from "react";
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
+  const CustomLayout = Component.layout ? Component.layout : React.Fragment;
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Component {...pageProps} />
+      <CustomLayout>
+        <Component {...pageProps} />
+      </CustomLayout>
     </>
   );
 }
-export default MyApp;
+export default App;

@@ -1,10 +1,14 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export default function Login() {
   const logo = require("./../assets/img/logo/nextdash.png");
+  const [username, setUsername] = React.useState("pedrorsilva");
+  const router = useRouter();
 
   return (
     <div className={styles.container}>
@@ -34,6 +38,11 @@ export default function Home() {
                         className="form-control form-control-lg"
                         id="usuario"
                         placeholder="Usuário"
+                        value={username}
+                        onChange={function (event) {
+                          const valor = event.target.value;
+                          setUsername(valor);
+                        }}
                       />
                     </div>
                     <div className="form-group">
@@ -45,12 +54,16 @@ export default function Home() {
                       />
                     </div>
                     <div className="mt-3">
-                      <a
-                        className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
-                        href="#Login"
+                      <Button
+                        variant="primary"
+                        size="lg"
+                        className="btn-block font-weight-medium auth-form-btn"
+                        onClick={(event) => {
+                          router.push("/dashboard");
+                        }}
                       >
                         Login
-                      </a>
+                      </Button>
                     </div>
                     <div className="my-2 d-flex justify-content-between align-items-center">
                       <a href="#" className="auth-link text-black">
