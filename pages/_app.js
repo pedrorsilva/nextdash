@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "../styles/style.css";
+import "../styles/style.scroll.css";
 
 import Head from "next/head";
 import React from "react";

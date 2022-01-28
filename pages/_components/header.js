@@ -1,8 +1,11 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { TiCog, TiInfoOutline, TiUser, TiPower, TiHeart } from "react-icons/ti";
 
 const Header = () => {
+  const router = useRouter();
+
   return (
     <Navbar
       collapseOnSelect
@@ -26,7 +29,14 @@ const Header = () => {
             <NavDropdown title="Configurações" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Settings</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Sair</NavDropdown.Item>
+              <NavDropdown.Item
+                href="#action/3.4"
+                onClick={(event) => {
+                  router.push("/");
+                }}
+              >
+                Sair
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
