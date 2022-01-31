@@ -10,7 +10,7 @@ const Sidebar = () => {
           <a
             className="nav-link btn"
             onClick={(event) => {
-              router.push("/dashboard");
+              router.push(`/dashboard?username=${router.query.username}`);
             }}
           >
             <i className="icon-grid menu-icon"></i>
@@ -21,7 +21,7 @@ const Sidebar = () => {
           <a
             className="nav-link btn"
             onClick={(event) => {
-              router.push("/chat");
+              router.push(`/chat?username=${router.query.username}`);
             }}
           >
             <i className="icon-cog menu-icon"></i>

@@ -3,6 +3,13 @@ import React from "react";
 import { Card, Col, FormGroup } from "react-bootstrap";
 import { TiInputChecked } from "react-icons/ti";
 import DashboardLayout from "./_layouts/dashboad";
+import { createClient } from "@supabase/supabase-js";
+import { useRouter } from "next/router";
+
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMzMTY1NCwiZXhwIjoxOTU4OTA3NjU0fQ.JmJ_8dsqiDYJbrLQfvpAvTWVIkLqAtcVPt3dqSZSh4E";
+const SUPABASE_URL = "https://eaerqapuqrjegrpdzivr.supabase.co";
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const Mensagem = ({
   name = "Pedro Silva",
@@ -43,19 +50,9 @@ const Mensagem = ({
 };
 
 const TextBox = ({ messageList, setMessageList }) => {
-  // const setMensage = (message) = {
-  //   messages.push({inverted: true, message: message, image: 'pedrorsilva', })
-  // }
+  const router = useRouter();
   const [message, setMessage] = React.useState("");
 
-  // const setMessageList = (message) => {
-  //   messages.push({
-  //     message: message,
-  //     inverted: true,
-  //     image: "pedrorsilva",
-  //     name: "Pedro Silva",
-  //   });
-  // };
   return (
     <Card>
       <div className="card-body">
@@ -66,7 +63,7 @@ const TextBox = ({ messageList, setMessageList }) => {
               id="maxlength-textarea"
               className="form-control"
               maxLength="500"
-              rows="3"
+              rows="auto"
               placeholder="Mensagem"
               onChange={(event) => {
                 const valor = event.target.value;
@@ -74,15 +71,24 @@ const TextBox = ({ messageList, setMessageList }) => {
               }}
               onKeyPress={(event) => {
                 if (event.key === "Enter") {
-                  setMessageList([
-                    ...messageList,
-                    {
-                      message: message,
-                      inverted: true,
-                      image: "pedrorsilva",
-                      name: "Pedro Silva",
-                    },
-                  ]);
+                  supabaseClient
+                    .from("mensagens")
+                    .insert([
+                      {
+                        de: router.query.username,
+                        texto: message,
+                      },
+                    ])
+                    .then((resp) => {
+                      setMessageList([
+                        ...messageList,
+                        {
+                          texto: resp.data[0].texto,
+                          de: resp.data[0].de,
+                        },
+                      ]);
+                    });
+
                   setMessage("");
                 }
               }}
@@ -96,6 +102,16 @@ const TextBox = ({ messageList, setMessageList }) => {
 
 const Chat = () => {
   const [messageList, setMessageList] = React.useState([]);
+
+  React.useEffect(() => {
+    supabaseClient
+      .from("mensagens")
+      .select("*")
+      .then(({ data }) => {
+        setMessageList(data);
+      });
+  }, []);
+
   return (
     <>
       <div className="row">
@@ -109,20 +125,23 @@ const Chat = () => {
       </div>
       <div className="col-md-12 grid-margin stretch-card mt-4">
         <div className="card">
-          <div className="card-body">
+          <div className="card-body" style={{ maxHeight: "60vh" }}>
             <h4 className="card-title">Lista de mensagens</h4>
 
             <div
               className="mt-5"
-              style={{ maxHeight: "70%", overflow: "auto" }}
+              style={{
+                maxHeight: "calc(100% - 75px)",
+                overflow: "auto",
+              }}
             >
               {messageList.map((message, index) => (
                 <Mensagem
                   key={index}
                   inverted={index % 2 ? true : false}
-                  name={message.name}
-                  image={message.image}
-                  message={message.message}
+                  name={message.de}
+                  image={message.de}
+                  message={message.texto}
                 />
               ))}
             </div>

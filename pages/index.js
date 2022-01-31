@@ -45,7 +45,10 @@ export default function Login() {
                         }}
                       />
                     </div>
-                    <div className="form-group">
+                    <div
+                      className="form-group"
+                      style={{ visibility: "hidden" }}
+                    >
                       <input
                         type="password"
                         className="form-control form-control-lg"
@@ -59,7 +62,7 @@ export default function Login() {
                         size="lg"
                         className="btn-block font-weight-medium auth-form-btn"
                         onClick={(event) => {
-                          router.push("/dashboard");
+                          router.push(`/dashboard?username=${username}`);
                         }}
                       >
                         Login
