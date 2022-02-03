@@ -4,7 +4,7 @@ import appConfig from "../../config.json";
 import { Button, Card, Modal } from "react-bootstrap";
 import Image from "next/image";
 
-export function ButtonSendSticker(props) {
+export default function ButtonSendSticker(props) {
   const [isOpen, setOpenState] = React.useState("");
 
   const [show, setShow] = React.useState(false);
