@@ -1,12 +1,9 @@
-import React from "react";
-// import { Box, Button, Text, Image } from '@skynexui/components';
-import appConfig from "../../config.json";
-import { Button, Card, Modal } from "react-bootstrap";
 import Image from "next/image";
+import React from "react";
+import { Button, Modal } from "react-bootstrap";
+import appConfig from "../../config.json";
 
-export default function ButtonSendSticker(props) {
-  const [isOpen, setOpenState] = React.useState("");
-
+const ButtonSendSticker = (props) => {
   const [show, setShow] = React.useState(false);
 
   const handleClose = () => setShow(false);
@@ -22,7 +19,7 @@ export default function ButtonSendSticker(props) {
         <Modal.Header closeButton>
           <Modal.Title>Stickers</Modal.Title>
         </Modal.Header>
-        <Modal.Body scrollable={true}>
+        <Modal.Body>
           {appConfig.stickers.map((sticker) => (
             <span
               onClick={() => {
@@ -59,4 +56,6 @@ export default function ButtonSendSticker(props) {
       </Modal>
     </>
   );
-}
+};
+
+export default ButtonSendSticker;

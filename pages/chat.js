@@ -1,12 +1,11 @@
+import { createClient } from "@supabase/supabase-js";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 import { Card, Col, FormGroup } from "react-bootstrap";
 import { TiInputChecked } from "react-icons/ti";
+import ButtonSendSticker from "./_components/button-send-stickers";
 import DashboardLayout from "./_layouts/dashboad";
-import { createClient } from "@supabase/supabase-js";
-import { useRouter } from "next/router";
-
-import { ButtonSendSticker } from "./_components/button-send-stickers";
 
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMzMTY1NCwiZXhwIjoxOTU4OTA3NjU0fQ.JmJ_8dsqiDYJbrLQfvpAvTWVIkLqAtcVPt3dqSZSh4E";

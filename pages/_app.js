@@ -5,7 +5,6 @@ import "../styles/style.scroll.css";
 
 import Head from "next/head";
 import React from "react";
-import SSRProvider from "react-bootstrap/SSRProvider";
 
 function App({ Component, pageProps }) {
   const CustomLayout = Component.layout ? Component.layout : React.Fragment;
@@ -18,9 +17,7 @@ function App({ Component, pageProps }) {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <CustomLayout>
-        <SSRProvider>
-          <Component {...pageProps} />
-        </SSRProvider>
+        <Component {...pageProps} />
       </CustomLayout>
     </>
   );
