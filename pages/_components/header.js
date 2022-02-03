@@ -38,6 +38,13 @@ const Header = () => {
                 Sair
               </NavDropdown.Item>
             </NavDropdown>
+            <Image
+              className="img-sm rounded-circle"
+              src={`https://github.com/${router.query.username}.png`}
+              width={40}
+              height={40}
+              alt="profile"
+            />
           </Nav>
         </Navbar.Collapse>
       </Container>
